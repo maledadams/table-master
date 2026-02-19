@@ -104,7 +104,7 @@ export function ReservationModal({ open, onClose, table, combinedTableIds }: Res
                     variant={duration === opt.value ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setDuration(opt.value)}
-                    className={`text-[10px] px-2 h-8 ${
+                    className={`text-xs px-3 h-12 ${
                       duration === opt.value
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-secondary text-muted-foreground hover:text-foreground'

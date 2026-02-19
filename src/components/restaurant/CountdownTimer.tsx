@@ -51,7 +51,7 @@ export function CountdownTimer({ startTime, duration, date }: CountdownTimerProp
 
   return (
     <span
-      className={`font-mono text-[10px] font-bold leading-none ${
+      className={`font-mono text-[1.25rem] font-bold leading-none ${
         exceeded ? 'text-red-400 table-time-exceeded' : ''
       }`}
     >

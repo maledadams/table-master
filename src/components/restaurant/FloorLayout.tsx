@@ -39,7 +39,6 @@ export function FloorLayout() {
     return () => clearInterval(interval);
   }, [refreshReservations]);
 
-  // Check if selected VIP square can combine with partner
   const canCombine = useMemo(() => {
     if (!selectedTable?.canMerge || !selectedTable.mergeGroup) return false;
     const partner = rawTables.find(
@@ -104,31 +103,31 @@ export function FloorLayout() {
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
-      <header className="h-14 bg-card border-b border-border flex items-center justify-between px-4 shrink-0">
+      <header className="h-24 cozy-light-panel border-b flex items-center justify-between px-6 shrink-0">
         <div className="flex items-center gap-4">
-          <h1 className="text-sm font-bold text-foreground tracking-tight">FLOOR MANAGER</h1>
-          <div className="h-5 w-px bg-border" />
-          <span className="text-xs text-muted-foreground capitalize">{dateStr}</span>
+          <h1 className="font-display text-base font-bold cozy-light-text tracking-tight">FLOOR MANAGER</h1>
+          <div className="h-5 w-px bg-[hsl(var(--panel-light-border))]" />
+          <span className="text-xs cozy-light-muted capitalize">{dateStr}</span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="font-mono text-sm text-primary font-bold">{timeStr}</span>
-          <div className="h-5 w-px bg-border" />
+          <span className="font-mono text-base text-primary font-bold">{timeStr}</span>
+          <div className="h-5 w-px bg-[hsl(var(--panel-light-border))]" />
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setShowReservationList(true)}
-            className="text-xs text-foreground gap-1.5"
+            className="text-xs cozy-light-text gap-2 px-4 hover:bg-[hsl(var(--panel-light-border))]/50"
           >
-            <CalendarDays className="w-3.5 h-3.5" />
+            <CalendarDays className="w-5 h-5" />
             Reservas
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={refreshReservations}
-            className="text-xs text-muted-foreground gap-1.5"
+            className="text-xs cozy-light-muted gap-2 px-4 hover:bg-[hsl(var(--panel-light-border))]/45 hover:text-[hsl(var(--panel-light-foreground))]"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className="w-5 h-5" />
           </Button>
         </div>
       </header>
@@ -145,7 +144,10 @@ export function FloorLayout() {
         <>
           <TableActionModal
             open={showActionModal}
-            onClose={() => { setShowActionModal(false); setSelectedTable(null); }}
+            onClose={() => {
+              setShowActionModal(false);
+              setSelectedTable(null);
+            }}
             table={selectedTable}
             onReserve={handleReserve}
             onWalkIn={handleWalkIn}
@@ -154,7 +156,11 @@ export function FloorLayout() {
           />
           <ReservationModal
             open={showReservationModal}
-            onClose={() => { setShowReservationModal(false); setSelectedTable(null); setCombineMode(false); }}
+            onClose={() => {
+              setShowReservationModal(false);
+              setSelectedTable(null);
+              setCombineMode(false);
+            }}
             table={selectedTable}
             combinedTableIds={combineMode ? combinedTableIds : undefined}
           />
@@ -193,9 +199,9 @@ function OccupiedTableBar({ onRelease }: { onRelease: (tableId: string) => void 
   if (releasable.length === 0) return null;
 
   return (
-    <div className="border-t border-border bg-card px-4 py-2 shrink-0">
-      <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1.5">
-        Mesas activas — {area?.name ?? 'Todas'} — Click para liberar
+    <div className="border-t cozy-light-panel px-5 py-4 shrink-0">
+      <div className="text-xs uppercase tracking-widest cozy-light-muted mb-1.5">
+        Mesas activas - {area?.name ?? 'Todas'} - Click para liberar
       </div>
       <div className="flex gap-2 flex-wrap">
         {releasable.map((t) => (
@@ -205,13 +211,13 @@ function OccupiedTableBar({ onRelease }: { onRelease: (tableId: string) => void 
             size="sm"
             onClick={() => onRelease(t.id)}
             className={cn(
-              'h-7 px-2 text-xs gap-1 text-foreground',
+              'h-14 px-4 text-xs gap-2 cozy-light-text border border-[hsl(var(--panel-light-border))]/70',
               t.visualStatus === 'occupied'
-                ? 'bg-secondary hover:bg-accent'
-                : 'bg-destructive/20 hover:bg-destructive/30'
+                ? 'bg-[hsl(var(--panel-light))]/80 hover:bg-[hsl(var(--panel-light-border))]/40'
+                : 'bg-[hsl(var(--destructive))]/20 hover:bg-[hsl(var(--destructive))]/30'
             )}
           >
-            <Unlock className="w-3 h-3" />
+            <Unlock className="w-5 h-5" />
             {t.name}
             {t.reservation?.clientName && t.reservation.clientName !== 'Walk-in' && (
               <span className="opacity-60 ml-1">({t.reservation.clientName})</span>

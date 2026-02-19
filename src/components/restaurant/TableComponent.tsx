@@ -1,31 +1,13 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { TableWithStatus } from '@/types/restaurant';
 import { CountdownTimer } from './CountdownTimer';
 import { cn } from '@/lib/utils';
+import { getTableDimensions } from './table-dimensions';
 
 interface TableComponentProps {
   table: TableWithStatus;
   onClick: (table: TableWithStatus) => void;
   isMergedView?: boolean;
-}
-
-function getTableDimensions(table: TableWithStatus, isMergedView?: boolean): { width: string; height: string; rounded: string } {
-  if (table.type === 'circular') {
-    return { width: 'w-24 h-24', height: '', rounded: 'rounded-full' };
-  }
-
-  if (isMergedView) {
-    return { width: 'w-36 h-16', height: '', rounded: 'rounded-lg' };
-  }
-
-  switch (table.capacity) {
-    case 2: return { width: 'w-14 h-14', height: '', rounded: 'rounded-md' };
-    case 4: return { width: 'w-20 h-14', height: '', rounded: 'rounded-md' };
-    case 6: return { width: 'w-24 h-16', height: '', rounded: 'rounded-lg' };
-    case 8: return { width: 'w-28 h-16', height: '', rounded: 'rounded-lg' };
-    case 10: return { width: 'w-24 h-24', height: '', rounded: 'rounded-full' };
-    default: return { width: 'w-16 h-14', height: '', rounded: 'rounded-md' };
-  }
 }
 
 function getStatusClass(status: TableWithStatus['visualStatus']): string {
@@ -48,16 +30,16 @@ export const TableComponent = memo(function TableComponent({ table, onClick, isM
     <button
       onClick={() => onClick(table)}
       className={cn(
-        dims.width,
-        dims.rounded,
+        dims.sizeClass,
+        dims.roundedClass,
         statusClass,
-        'flex flex-col items-center justify-center gap-0.5 p-1 cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 select-none border border-white/5',
+        'flex flex-col items-center justify-center gap-1 p-2 cursor-pointer transition-transform duration-200 hover:-translate-y-0.5 active:scale-95 select-none border border-white/10',
         table.isVIP && table.visualStatus !== 'vip_combined' && 'table-vip-border'
       )}
       title={`${table.name} (${table.capacity}p) - ${table.visualStatus}`}
     >
-      <span className="text-[10px] font-bold leading-none opacity-90">{table.name}</span>
-      <span className="text-[9px] leading-none opacity-60">{isMergedView ? 'A+B 6p' : `${table.capacity}p`}</span>
+      <span className="text-[1.375rem] font-bold leading-none opacity-95">{table.name}</span>
+      <span className="text-[1.25rem] leading-none opacity-70">{isMergedView ? 'A+B 6p' : `${table.capacity}p`}</span>
 
       {showTimer && table.reservation && (
         <CountdownTimer
@@ -68,13 +50,13 @@ export const TableComponent = memo(function TableComponent({ table, onClick, isM
       )}
 
       {table.visualStatus === 'reserved_future' && table.reservation && (
-        <span className="text-[8px] leading-none opacity-70 mt-0.5">
+        <span className="text-[1rem] leading-none opacity-70 mt-1">
           {table.reservation.startTime}
         </span>
       )}
 
       {table.visualStatus === 'occupied' && (
-        <span className="text-[8px] leading-none opacity-60 mt-0.5">Ocupada</span>
+        <span className="text-[1rem] leading-none opacity-60 mt-1">Ocupada</span>
       )}
     </button>
   );

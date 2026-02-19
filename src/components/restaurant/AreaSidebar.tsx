@@ -1,9 +1,10 @@
 import { useRestaurantStore, computeTablesWithStatus } from '@/store/restaurant-store';
 import { Area } from '@/types/restaurant';
 import { cn } from '@/lib/utils';
+import type { ElementType } from 'react';
 import { MapPin, Wine, Trees, Building2, Armchair } from 'lucide-react';
 
-const areaIcons: Record<string, React.ElementType> = {
+const areaIcons: Record<string, ElementType> = {
   Terraza: Trees,
   Patio: MapPin,
   Lobby: Building2,
@@ -31,9 +32,9 @@ export function AreaSidebar({ currentTime }: AreaSidebarProps) {
   };
 
   return (
-    <div className="w-48 bg-card border-r border-border flex flex-col shrink-0">
-      <div className="px-3 py-3 border-b border-border">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Áreas</h2>
+    <div className="w-[24rem] cozy-light-panel border-r flex flex-col shrink-0">
+      <div className="px-3 py-3 border-b border-[hsl(var(--panel-light-border))]">
+        <h2 className="font-display text-xs font-bold uppercase tracking-widest cozy-light-muted">Areas</h2>
       </div>
       <div className="flex flex-col gap-1 p-2">
         {areas.map((area) => {
@@ -45,16 +46,16 @@ export function AreaSidebar({ currentTime }: AreaSidebarProps) {
               key={area.id}
               onClick={() => selectArea(area.id)}
               className={cn(
-                'flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-150 text-left',
+                'flex items-center gap-4 px-4 py-4 rounded-lg transition-all duration-150 text-left',
                 isActive
-                  ? 'bg-primary/15 text-primary border border-primary/30'
-                  : 'text-muted-foreground hover:bg-accent hover:text-foreground border border-transparent'
+                  ? 'bg-[hsl(var(--primary))]/20 text-[hsl(var(--panel-light-foreground))] border border-[hsl(var(--primary))]/45'
+                  : 'cozy-light-muted hover:bg-[hsl(var(--panel-light-border))]/25 hover:text-[hsl(var(--panel-light-foreground))] border border-transparent'
               )}
             >
-              <Icon className="w-4 h-4 shrink-0" />
+              <Icon className="w-6 h-6 shrink-0" />
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold">{area.name}</div>
-                <div className="text-[10px] opacity-60">
+                <div className="text-[2.625rem] leading-[1.05] font-semibold">{area.name}</div>
+                <div className="text-[1.25rem] opacity-60 mt-1">
                   {stats.available}/{stats.total} mesas
                 </div>
               </div>
@@ -63,27 +64,26 @@ export function AreaSidebar({ currentTime }: AreaSidebarProps) {
         })}
       </div>
 
-      {/* Legend */}
-      <div className="mt-auto p-3 border-t border-border space-y-1.5">
-        <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Estado</div>
-        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <div className="w-3 h-3 rounded table-available" />
+      <div className="mt-auto p-3 border-t border-[hsl(var(--panel-light-border))] space-y-1.5">
+        <div className="font-display text-[1.25rem] font-bold uppercase tracking-widest cozy-light-muted mb-2">Estado</div>
+        <div className="flex items-center gap-2 text-[1.25rem] cozy-light-muted">
+          <div className="w-5 h-5 rounded table-available" />
           Disponible
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <div className="w-3 h-3 rounded table-occupied" />
+        <div className="flex items-center gap-2 text-[1.25rem] cozy-light-muted">
+          <div className="w-5 h-5 rounded table-occupied" />
           Ocupada
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <div className="w-3 h-3 rounded table-reserved-future" />
+        <div className="flex items-center gap-2 text-[1.25rem] cozy-light-muted">
+          <div className="w-5 h-5 rounded table-reserved-future" />
           Reserva futura
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <div className="w-3 h-3 rounded table-reserved-active" />
+        <div className="flex items-center gap-2 text-[1.25rem] cozy-light-muted">
+          <div className="w-5 h-5 rounded table-reserved-active" />
           Reserva activa
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <div className="w-3 h-3 rounded border-2" style={{ borderColor: 'hsl(42 75% 55%)' }} />
+        <div className="flex items-center gap-2 text-[1.25rem] cozy-light-muted">
+          <div className="w-5 h-5 rounded border-2" style={{ borderColor: 'hsl(42 75% 55%)' }} />
           VIP
         </div>
       </div>
