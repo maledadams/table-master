@@ -365,7 +365,7 @@ export const api = {
 
   async createTable(input: {
     areaId: string;
-    capacity?: number;
+    capacity?: 2 | 4 | 6 | 8;
     type?: 'standard' | 'square';
   }): Promise<RestaurantTable> {
     ensureInitialized();

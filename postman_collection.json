@@ -1,0 +1,2145 @@
+{
+    "item": [
+        {
+            "name": "health",
+            "description": "",
+            "item": [
+                {
+                    "id": "3cdcc130-7d7b-43ff-b315-30cb0fac4981",
+                    "name": "Health check",
+                    "request": {
+                        "name": "Health check",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "health"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "a95c7efc-f9d4-4b3d-b312-8b2a2b4e8f6b",
+                            "name": "API saludable",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"status\": \"<string>\",\n  \"service\": \"<string>\",\n  \"timestamp\": \"<dateTime>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "6e0660ce-7c54-4643-961a-3dfaefdbb456",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "areas",
+            "description": "",
+            "item": [
+                {
+                    "id": "f2b9d0cf-d4e9-403d-9592-dc74d2ae1e13",
+                    "name": "Listar áreas",
+                    "request": {
+                        "name": "Listar áreas",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "areas"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "b6415094-00cd-47eb-bfc9-1200bf7e7a65",
+                            "name": "Lista de áreas",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "areas"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"Terraza\",\n    \"maxTables\": \"<integer>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"Patio\",\n    \"maxTables\": \"<integer>\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "8fbcddd2-eb88-4528-a45a-10900c4e1d46",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "areas"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "floor-layout",
+            "description": "",
+            "item": [
+                {
+                    "id": "e4b0f044-3596-4687-ab59-87ea286f4269",
+                    "name": "Obtener snapshot del floor",
+                    "request": {
+                        "name": "Obtener snapshot del floor",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "floor-layout"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "Fecha YYYY-MM-DD",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "date",
+                                    "value": "0259-98-22"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "areaId",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "fc7fb11f-ddac-4886-b010-8be39ad897bd",
+                            "name": "Snapshot con áreas, mesas y reservas",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "floor-layout"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "Fecha YYYY-MM-DD",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"date\": \"3290-26-82\",\n  \"areaId\": \"<string,null>\",\n  \"areas\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"Bar\",\n      \"maxTables\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"Patio\",\n      \"maxTables\": \"<integer>\"\n    }\n  ],\n  \"tables\": [\n    {\n      \"id\": \"<string>\",\n      \"areaId\": \"<string>\",\n      \"capacity\": \"<integer>\",\n      \"type\": \"circular\",\n      \"name\": \"<string>\",\n      \"isVIP\": \"<boolean>\",\n      \"canMerge\": \"<boolean>\",\n      \"mergeGroup\": \"<string,null>\",\n      \"x\": \"<number>\",\n      \"y\": \"<number>\",\n      \"version\": \"<integer>\",\n      \"updatedAt\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"areaId\": \"<string>\",\n      \"capacity\": \"<integer>\",\n      \"type\": \"circular\",\n      \"name\": \"<string>\",\n      \"isVIP\": \"<boolean>\",\n      \"canMerge\": \"<boolean>\",\n      \"mergeGroup\": \"<string,null>\",\n      \"x\": \"<number>\",\n      \"y\": \"<number>\",\n      \"version\": \"<integer>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  ],\n  \"reservations\": [\n    {\n      \"id\": \"<string>\",\n      \"tableIds\": [\n        \"<string>\"\n      ],\n      \"clientName\": \"<string>\",\n      \"partySize\": \"<integer>\",\n      \"date\": \"1587-93-84\",\n      \"startTime\": \"21:26\",\n      \"endTime\": \"01:40\",\n      \"status\": \"confirmed\",\n      \"duration\": \"<integer>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"tableIds\": [\n        \"<string>\"\n      ],\n      \"clientName\": \"<string>\",\n      \"partySize\": \"<integer>\",\n      \"date\": \"9773-62-96\",\n      \"startTime\": \"01:05\",\n      \"endTime\": \"20:24\",\n      \"status\": \"pending\",\n      \"duration\": \"<integer>\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "6762b763-f2c9-40f3-9cc9-c785027f5522",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "floor-layout"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "Fecha YYYY-MM-DD",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "tables",
+            "description": "",
+            "item": [
+                {
+                    "id": "096b6233-2c09-4197-98a5-453e3d275e9b",
+                    "name": "Listar mesas",
+                    "request": {
+                        "name": "Listar mesas",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "tables"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "areaId",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "1771fe92-1745-47d5-a034-ec124db446a2",
+                            "name": "Lista de mesas",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tables"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<string>\",\n    \"areaId\": \"<string>\",\n    \"capacity\": \"<integer>\",\n    \"type\": \"square\",\n    \"name\": \"<string>\",\n    \"isVIP\": \"<boolean>\",\n    \"canMerge\": \"<boolean>\",\n    \"mergeGroup\": \"<string,null>\",\n    \"x\": \"<number>\",\n    \"y\": \"<number>\",\n    \"version\": \"<integer>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"areaId\": \"<string>\",\n    \"capacity\": \"<integer>\",\n    \"type\": \"standard\",\n    \"name\": \"<string>\",\n    \"isVIP\": \"<boolean>\",\n    \"canMerge\": \"<boolean>\",\n    \"mergeGroup\": \"<string,null>\",\n    \"x\": \"<number>\",\n    \"y\": \"<number>\",\n    \"version\": \"<integer>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "c4cc5019-b0c4-4279-86b3-4961721220a4",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tables"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "a3754a1d-eabc-443b-9cb3-f9901e0715c7",
+                    "name": "Crear mesa (solo áreas no VIP)",
+                    "request": {
+                        "name": "Crear mesa (solo áreas no VIP)",
+                        "description": {
+                            "content": "Máximo 8 mesas por área no VIP.",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "tables"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"areaId\": \"<string>\",\n  \"capacity\": 4,\n  \"type\": \"square\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "be669ac0-43a4-41d6-8069-5e9811abd0dc",
+                            "name": "Mesa creada",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tables"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"areaId\": \"<string>\",\n  \"capacity\": 4,\n  \"type\": \"square\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<string>\",\n  \"areaId\": \"<string>\",\n  \"capacity\": \"<integer>\",\n  \"type\": \"standard\",\n  \"name\": \"<string>\",\n  \"isVIP\": \"<boolean>\",\n  \"canMerge\": \"<boolean>\",\n  \"mergeGroup\": \"<string,null>\",\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"version\": \"<integer>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "1e1d51a8-47e0-41fd-be3d-9d2996e14d08",
+                            "name": "Conflicto de negocio o solape",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tables"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"areaId\": \"<string>\",\n  \"capacity\": 4,\n  \"type\": \"square\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "151ccd02-7042-4a0d-9d2e-fe12a723902b",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "tables"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"areaId\": \"<string>\",\n  \"capacity\": 4,\n  \"type\": \"square\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "name": "position",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "1af22053-9db1-4aa9-8558-da1a37f87e57",
+                                    "name": "Actualizar posición de mesa",
+                                    "request": {
+                                        "name": "Actualizar posición de mesa",
+                                        "description": {
+                                            "content": "Soporta control de concurrencia con expectedVersion.",
+                                            "type": "text/plain"
+                                        },
+                                        "url": {
+                                            "path": [
+                                                "tables",
+                                                ":id",
+                                                "position"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": [
+                                                {
+                                                    "type": "any",
+                                                    "value": "<string>",
+                                                    "key": "id",
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) ",
+                                                        "type": "text/plain"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PATCH",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"expectedVersion\": \"<integer>\",\n  \"areaId\": \"<string>\",\n  \"canvasWidth\": \"<number>\",\n  \"canvasHeight\": \"<number>\",\n  \"isMergedView\": \"<boolean>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        },
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "ec8e4117-4ad5-4f91-a5ba-97addb5646ed",
+                                            "name": "Mesa actualizada",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "tables",
+                                                        ":id",
+                                                        "position"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "PATCH",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"expectedVersion\": \"<integer>\",\n  \"areaId\": \"<string>\",\n  \"canvasWidth\": \"<number>\",\n  \"canvasHeight\": \"<number>\",\n  \"isMergedView\": \"<boolean>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"id\": \"<string>\",\n  \"areaId\": \"<string>\",\n  \"capacity\": \"<integer>\",\n  \"type\": \"standard\",\n  \"name\": \"<string>\",\n  \"isVIP\": \"<boolean>\",\n  \"canMerge\": \"<boolean>\",\n  \"mergeGroup\": \"<string,null>\",\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"version\": \"<integer>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "7e5dc308-6530-47ca-9797-7900a22beed2",
+                                            "name": "Conflicto de concurrencia",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "tables",
+                                                        ":id",
+                                                        "position"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "PATCH",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"expectedVersion\": \"<integer>\",\n  \"areaId\": \"<string>\",\n  \"canvasWidth\": \"<number>\",\n  \"canvasHeight\": \"<number>\",\n  \"isMergedView\": \"<boolean>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "Conflict",
+                                            "code": 409,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "7ee4f04c-c6cc-420a-b54d-839d6a089846",
+                                            "name": "Error de validación",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "tables",
+                                                        ":id",
+                                                        "position"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "PATCH",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"x\": \"<number>\",\n  \"y\": \"<number>\",\n  \"expectedVersion\": \"<integer>\",\n  \"areaId\": \"<string>\",\n  \"canvasWidth\": \"<number>\",\n  \"canvasHeight\": \"<number>\",\n  \"isMergedView\": \"<boolean>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                            "code": 422,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "release",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "58670f3f-63d7-4016-bf75-36d068a2a254",
+                                    "name": "Liberar mesa (marca reserva activa como completed)",
+                                    "request": {
+                                        "name": "Liberar mesa (marca reserva activa como completed)",
+                                        "description": {},
+                                        "url": {
+                                            "path": [
+                                                "tables",
+                                                ":id",
+                                                "release"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": [
+                                                {
+                                                    "type": "any",
+                                                    "value": "<string>",
+                                                    "key": "id",
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) ",
+                                                        "type": "text/plain"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {},
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "6a28de28-e389-4c83-98f8-1ef378c0b295",
+                                            "name": "Resultado de liberación",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "tables",
+                                                        ":id",
+                                                        "release"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "POST",
+                                                "body": {}
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"ok\": \"<boolean>\",\n  \"released\": \"<boolean>\",\n  \"reservation\": {\n    \"id\": \"<string>\",\n    \"tableIds\": [\n      \"<string>\"\n    ],\n    \"clientName\": \"<string>\",\n    \"partySize\": \"<integer>\",\n    \"date\": \"5256-40-79\",\n    \"startTime\": \"02:05\",\n    \"endTime\": \"09:28\",\n    \"status\": \"confirmed\",\n    \"duration\": \"<integer>\",\n    \"notes\": \"<string>\"\n  }\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "ac540d16-0599-4004-a1f2-8283983bf927",
+                                            "name": "Error de validación",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "tables",
+                                                        ":id",
+                                                        "release"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "POST",
+                                                "body": {}
+                                            },
+                                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                            "code": 422,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "reservations",
+            "description": "",
+            "item": [
+                {
+                    "id": "0d943af9-c349-44d7-b0dd-756c038dd361",
+                    "name": "Listar reservas por fecha",
+                    "request": {
+                        "name": "Listar reservas por fecha",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "reservations"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "date",
+                                    "value": "0259-98-22"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "areaId",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "ee6fb3ff-43ca-4adf-bbf1-1e3f95bd1b95",
+                            "name": "Reservas filtradas",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "reservations"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "[\n  {\n    \"id\": \"<string>\",\n    \"tableIds\": [\n      \"<string>\"\n    ],\n    \"clientName\": \"<string>\",\n    \"partySize\": \"<integer>\",\n    \"date\": \"1484-43-13\",\n    \"startTime\": \"01:04\",\n    \"endTime\": \"23:41\",\n    \"status\": \"pending\",\n    \"duration\": \"<integer>\",\n    \"notes\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"tableIds\": [\n      \"<string>\"\n    ],\n    \"clientName\": \"<string>\",\n    \"partySize\": \"<integer>\",\n    \"date\": \"6771-13-30\",\n    \"startTime\": \"03:45\",\n    \"endTime\": \"20:06\",\n    \"status\": \"pending\",\n    \"duration\": \"<integer>\",\n    \"notes\": \"<string>\"\n  }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "8f90d8e4-cac0-4ada-b74b-6db8b289855b",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "reservations"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaId",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "e31ef863-cb67-4b89-b831-67e6c771154d",
+                    "name": "Crear reserva",
+                    "request": {
+                        "name": "Crear reserva",
+                        "description": {
+                            "content": "Requiere Idempotency-Key para evitar duplicados.",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "reservations"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "disabled": false,
+                                "description": {
+                                    "content": "(Required) ",
+                                    "type": "text/plain"
+                                },
+                                "key": "Idempotency-Key",
+                                "value": "<string>"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"2188-80-45\",\n  \"startTime\": \"09:34\",\n  \"endTime\": \"20:06\",\n  \"status\": \"no_show\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "da2f72ca-389a-4ab6-9090-a87d7b34e4d4",
+                            "name": "Reserva creada",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "reservations"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "disabled": false,
+                                        "description": {
+                                            "content": "(Required) ",
+                                            "type": "text/plain"
+                                        },
+                                        "key": "Idempotency-Key",
+                                        "value": "<string>"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"2188-80-45\",\n  \"startTime\": \"09:34\",\n  \"endTime\": \"20:06\",\n  \"status\": \"no_show\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<string>\",\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"6153-53-59\",\n  \"startTime\": \"06:15\",\n  \"endTime\": \"10:39\",\n  \"status\": \"completed\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "af2f8bfc-f394-48ef-a3db-a46980b2a522",
+                            "name": "Conflicto de negocio o solape",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "reservations"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "disabled": false,
+                                        "description": {
+                                            "content": "(Required) ",
+                                            "type": "text/plain"
+                                        },
+                                        "key": "Idempotency-Key",
+                                        "value": "<string>"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"2188-80-45\",\n  \"startTime\": \"09:34\",\n  \"endTime\": \"20:06\",\n  \"status\": \"no_show\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "24432cda-8742-4658-a738-83a180046367",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "reservations"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "disabled": false,
+                                        "description": {
+                                            "content": "(Required) ",
+                                            "type": "text/plain"
+                                        },
+                                        "key": "Idempotency-Key",
+                                        "value": "<string>"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"2188-80-45\",\n  \"startTime\": \"09:34\",\n  \"endTime\": \"20:06\",\n  \"status\": \"no_show\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "name": "{id}",
+                    "description": "",
+                    "item": [
+                        {
+                            "name": "status",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "2dc1c202-2579-40a1-98ac-2afb3beef6ae",
+                                    "name": "Cambiar estado de reserva",
+                                    "request": {
+                                        "name": "Cambiar estado de reserva",
+                                        "description": {},
+                                        "url": {
+                                            "path": [
+                                                "reservations",
+                                                ":id",
+                                                "status"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": [
+                                                {
+                                                    "type": "any",
+                                                    "value": "<string>",
+                                                    "key": "id",
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) ",
+                                                        "type": "text/plain"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "PATCH",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"status\": \"cancelled\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        },
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "85067aca-5147-4185-91ce-ed6bdb2fde2c",
+                                            "name": "Reserva actualizada",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "reservations",
+                                                        ":id",
+                                                        "status"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "PATCH",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"status\": \"cancelled\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"id\": \"<string>\",\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"6153-53-59\",\n  \"startTime\": \"06:15\",\n  \"endTime\": \"10:39\",\n  \"status\": \"completed\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "2a6eb2e0-d238-405a-bad7-7679761aa5ae",
+                                            "name": "Error de validación",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "reservations",
+                                                        ":id",
+                                                        "status"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "id"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "PATCH",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"status\": \"cancelled\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                            "code": 422,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "walkins",
+            "description": "",
+            "item": [
+                {
+                    "id": "f7008063-5e93-49cc-8bae-34dadeaacaef",
+                    "name": "Crear ocupación walk-in",
+                    "request": {
+                        "name": "Crear ocupación walk-in",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "walkins"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"tableId\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "782e18b6-17ab-4149-9f92-6f438aaf691d",
+                            "name": "Walk-in creado",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "walkins"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableId\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"id\": \"<string>\",\n  \"tableIds\": [\n    \"<string>\"\n  ],\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"date\": \"6153-53-59\",\n  \"startTime\": \"06:15\",\n  \"endTime\": \"10:39\",\n  \"status\": \"completed\",\n  \"duration\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "3a01c6b5-aa8b-48f4-ab12-c49e2d0c0175",
+                            "name": "Conflicto de negocio o solape",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "walkins"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableId\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Conflict",
+                            "code": 409,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "8cc551aa-c5bb-4de8-90d9-a7477d87047a",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "walkins"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"tableId\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"partySize\": \"<integer>\",\n  \"notes\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "availability",
+            "description": "",
+            "item": [
+                {
+                    "id": "c0ec2759-a495-4049-94e9-a8f2c43219c8",
+                    "name": "Consultar disponibilidad",
+                    "request": {
+                        "name": "Consultar disponibilidad",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "availability"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "date",
+                                    "value": "0259-98-22"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "partySize",
+                                    "value": "<integer>"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "startTime",
+                                    "value": "04:08"
+                                },
+                                {
+                                    "disabled": false,
+                                    "description": {
+                                        "content": "",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "areaPreference",
+                                    "value": "<string>"
+                                }
+                            ],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "9d323b67-da73-4b74-bf21-cc964accd83f",
+                            "name": "Sugerencias de disponibilidad",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "availability"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "partySize",
+                                            "value": "<integer>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "startTime",
+                                            "value": "04:08"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaPreference",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"suggestedTables\": [\n    {\n      \"tableIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"capacity\": \"<integer>\",\n      \"tableName\": \"<string>\"\n    },\n    {\n      \"tableIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"capacity\": \"<integer>\",\n      \"tableName\": \"<string>\"\n    }\n  ],\n  \"alternatives\": [\n    {\n      \"tableIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"capacity\": \"<integer>\",\n      \"tableName\": \"<string>\"\n    },\n    {\n      \"tableIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"capacity\": \"<integer>\",\n      \"tableName\": \"<string>\"\n    }\n  ]\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "c142e7d9-83e3-4d76-956e-4cb09417c03d",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "availability"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "date",
+                                            "value": "0259-98-22"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "partySize",
+                                            "value": "<integer>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "startTime",
+                                            "value": "04:08"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "areaPreference",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": \"\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://YOUR-VERCEL-DOMAIN.vercel.app/api"
+        }
+    ],
+    "info": {
+        "_postman_id": "3d5f2b16-e647-49b0-9cb1-fb41b3ff586e",
+        "name": "Table Master API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "API para gestión de áreas, mesas y reservas del restaurante.\nContrato API-FIRST para implementación en Vercel Functions.\n",
+            "type": "text/plain"
+        }
+    }
+}

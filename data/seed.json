@@ -1,0 +1,46 @@
+{
+  "areas": [
+    { "id": "area-terraza", "name": "Terraza", "maxTables": 8, "is_vip": false },
+    { "id": "area-patio", "name": "Patio", "maxTables": 8, "is_vip": false },
+    { "id": "area-lobby", "name": "Lobby", "maxTables": 8, "is_vip": false },
+    { "id": "area-bar", "name": "Bar", "maxTables": 8, "is_vip": false },
+    { "id": "area-vip", "name": "Salones VIP", "maxTables": 3, "is_vip": true }
+  ],
+  "tables": [
+    { "id": "t-t1", "areaId": "area-terraza", "name": "T1", "capacity": 2, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 8, "y": 12 },
+    { "id": "t-t2", "areaId": "area-terraza", "name": "T2", "capacity": 2, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 28, "y": 12 },
+    { "id": "t-p1", "areaId": "area-patio", "name": "P1", "capacity": 2, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 10, "y": 15 },
+    { "id": "t-p3", "areaId": "area-patio", "name": "P3", "capacity": 4, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 60, "y": 15 },
+    { "id": "t-l3", "areaId": "area-lobby", "name": "L3", "capacity": 4, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 78, "y": 18 },
+    { "id": "t-b3", "areaId": "area-bar", "name": "B3", "capacity": 4, "type": "standard", "isVIP": false, "canMerge": false, "mergeGroup": null, "x": 60, "y": 25 },
+    { "id": "t-v1", "areaId": "area-vip", "name": "Redonda VIP", "capacity": 10, "type": "circular", "isVIP": true, "canMerge": false, "mergeGroup": null, "x": 40, "y": 15 },
+    { "id": "t-va", "areaId": "area-vip", "name": "Cuadrada A", "capacity": 4, "type": "square", "isVIP": true, "canMerge": true, "mergeGroup": "VIP_AB", "x": 22, "y": 62 },
+    { "id": "t-vb", "areaId": "area-vip", "name": "Cuadrada B", "capacity": 4, "type": "square", "isVIP": true, "canMerge": true, "mergeGroup": "VIP_AB", "x": 58, "y": 62 }
+  ],
+  "reservations": [
+    {
+      "id": "res-1",
+      "tableIds": ["t-l3"],
+      "clientName": "Garcia Lopez",
+      "partySize": 3,
+      "date": "2026-02-19",
+      "startTime": "13:00",
+      "endTime": "14:30",
+      "status": "confirmed",
+      "duration": 90,
+      "notes": "Cumpleanos"
+    },
+    {
+      "id": "res-3",
+      "tableIds": ["t-va", "t-vb"],
+      "clientName": "Fernandez VIP",
+      "partySize": 5,
+      "date": "2026-02-19",
+      "startTime": "20:00",
+      "endTime": "22:00",
+      "status": "confirmed",
+      "duration": 120,
+      "notes": "Cliente frecuente"
+    }
+  ]
+}

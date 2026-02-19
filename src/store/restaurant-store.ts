@@ -18,7 +18,7 @@ interface RestaurantState {
   updateReservationStatus: (id: string, status: Reservation['status']) => Promise<void>;
   markWalkIn: (tableId: string) => Promise<void>;
   releaseTable: (tableId: string) => Promise<void>;
-  addTableToSelectedArea: () => Promise<RestaurantTable>;
+  addTableToSelectedArea: (input?: { capacity?: 2 | 4 | 6 | 8; type?: 'standard' | 'square' }) => Promise<RestaurantTable>;
   updateTablePosition: (
     tableId: string,
     x: number,
@@ -178,7 +178,7 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
     }
   },
 
-  addTableToSelectedArea: async () => {
+  addTableToSelectedArea: async (input) => {
     const selectedAreaId = get().selectedAreaId;
     if (!selectedAreaId) {
       throw new ApiError({
@@ -188,7 +188,11 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
       });
     }
 
-    const created = await api.createTable({ areaId: selectedAreaId });
+    const created = await api.createTable({
+      areaId: selectedAreaId,
+      capacity: input?.capacity,
+      type: input?.type,
+    });
     set((state) => ({
       tables: [...state.tables, created],
     }));

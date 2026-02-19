@@ -4,6 +4,9 @@ import { TableComponent } from './TableComponent';
 import { TableWithStatus } from '@/types/restaurant';
 import { cn } from '@/lib/utils';
 import { clampTablePositionToArea } from '@/services/domain/table-position-rules';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { NewTableModal } from './NewTableModal';
 
 interface AreaCanvasProps {
   onTableClick: (table: TableWithStatus) => void;
@@ -43,6 +46,7 @@ export function AreaCanvas({ onTableClick, currentTime }: AreaCanvasProps) {
   const rawTables = useRestaurantStore((s) => s.tables);
   const reservations = useRestaurantStore((s) => s.reservations);
   const updateTablePosition = useRestaurantStore((s) => s.updateTablePosition);
+  const addTableToSelectedArea = useRestaurantStore((s) => s.addTableToSelectedArea);
 
   const area = areas.find((a) => a.id === selectedAreaId);
   const areaThemeClass = area ? areaThemeClassById[area.id] : '';
@@ -74,6 +78,7 @@ export function AreaCanvas({ onTableClick, currentTime }: AreaCanvasProps) {
   const [dragId, setDragId] = useState<string | null>(null);
   const [dragStartClient, setDragStartClient] = useState<{ cx: number; cy: number } | null>(null);
   const [dragCurrentClient, setDragCurrentClient] = useState<{ cx: number; cy: number } | null>(null);
+  const [showNewTableModal, setShowNewTableModal] = useState(false);
   const didDrag = useRef(false);
 
   const handlePointerDown = useCallback((e: React.PointerEvent, tableId: string) => {
@@ -156,6 +161,13 @@ export function AreaCanvas({ onTableClick, currentTime }: AreaCanvasProps) {
     );
   }
 
+  const canAddTable = area.id !== 'area-vip' && tables.length < 8;
+
+  const handleCreateTable = async (input: { capacity: 2 | 4 | 6 | 8; type: 'standard' | 'square' }) => {
+    if (!canAddTable) return;
+    await addTableToSelectedArea(input);
+  };
+
   const displayTables = (() => {
     if (!vipMergedReservation) return tables;
     return tables.filter((t) => t.id !== vipMergedReservation.tableB.id);
@@ -164,11 +176,25 @@ export function AreaCanvas({ onTableClick, currentTime }: AreaCanvasProps) {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="px-6 py-4 border-b border-border flex items-center gap-3 flex-wrap">
-        <h2 className="text-lg font-bold text-foreground">{area.name}</h2>
-        <span className="text-xs text-muted-foreground">
-          {tables.length} mesas - Max {area.maxTables}
-        </span>
+      <div className="px-6 py-4 border-b border-border flex items-center gap-3 flex-wrap justify-between">
+        <div className="flex items-center gap-3 flex-wrap">
+          <h2 className="text-lg font-bold text-foreground">{area.name}</h2>
+          <span className="text-xs text-muted-foreground">
+            {tables.length} mesas - Max 8
+          </span>
+        </div>
+        {area.id !== 'area-vip' && (
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => setShowNewTableModal(true)}
+            disabled={!canAddTable}
+            className="gap-2"
+          >
+            <Plus className="w-5 h-5" />
+            Agregar mesa
+          </Button>
+        )}
       </div>
       <div
         ref={canvasRef}
@@ -215,6 +241,11 @@ export function AreaCanvas({ onTableClick, currentTime }: AreaCanvasProps) {
           );
         })}
       </div>
+      <NewTableModal
+        open={showNewTableModal}
+        onClose={() => setShowNewTableModal(false)}
+        onConfirm={handleCreateTable}
+      />
     </div>
   );
 }

@@ -75,6 +75,6 @@ export const updateTablePositionInputSchema = z.object({
 
 export const createTableInputSchema = z.object({
   areaId: z.string().min(1),
-  capacity: z.number().int().positive().optional(),
+  capacity: z.union([z.literal(2), z.literal(4), z.literal(6), z.literal(8)]).optional(),
   type: z.enum(['standard', 'square']).optional(),
 });

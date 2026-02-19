@@ -9,6 +9,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "openapi:lint": "redocly lint openapi.yaml",
+    "openapi:types": "openapi-typescript openapi.yaml -o src/types/openapi.ts",
+    "openapi:postman": "openapi2postmanv2 -s openapi.yaml -o postman_collection.json -p",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -67,6 +70,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@redocly/cli": "^1.34.2",
     "@eslint/js": "^9.32.0",
     "@tailwindcss/typography": "^0.5.16",
     "@testing-library/jest-dom": "^6.6.0",
@@ -82,6 +86,8 @@
     "globals": "^15.15.0",
     "jsdom": "^20.0.3",
     "lovable-tagger": "^1.1.13",
+    "openapi-to-postmanv2": "^5.3.0",
+    "openapi-typescript": "^7.6.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",

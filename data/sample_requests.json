@@ -1,0 +1,114 @@
+{
+  "reservations_peak_hours": [
+    {
+      "description": "Reserva 2 personas en hora pico",
+      "method": "POST",
+      "path": "/api/reservations",
+      "headers": {
+        "Idempotency-Key": "sample-r2-2026-02-19-2000"
+      },
+      "body": {
+        "tableIds": ["t-p1"],
+        "clientName": "Ana Rivera",
+        "partySize": 2,
+        "date": "2026-02-19",
+        "startTime": "20:00",
+        "endTime": "21:30",
+        "status": "confirmed",
+        "duration": 90,
+        "notes": "Cena hora pico"
+      }
+    },
+    {
+      "description": "Reserva 4 personas en hora pico",
+      "method": "POST",
+      "path": "/api/reservations",
+      "headers": {
+        "Idempotency-Key": "sample-r4-2026-02-19-2015"
+      },
+      "body": {
+        "tableIds": ["t-l3"],
+        "clientName": "Carlos Mendez",
+        "partySize": 4,
+        "date": "2026-02-19",
+        "startTime": "20:15",
+        "endTime": "21:45",
+        "status": "confirmed",
+        "duration": 90,
+        "notes": "Lobby"
+      }
+    },
+    {
+      "description": "Reserva 7 personas en hora pico (debe sugerir mesa 8)",
+      "method": "GET",
+      "path": "/api/availability?date=2026-02-19&partySize=7&startTime=20:00&areaPreference=area-patio"
+    },
+    {
+      "description": "Reserva 9 personas en hora pico",
+      "method": "POST",
+      "path": "/api/reservations",
+      "headers": {
+        "Idempotency-Key": "sample-r9-2026-02-19-2030"
+      },
+      "body": {
+        "tableIds": ["t-v1"],
+        "clientName": "Grupo Ejecutivo",
+        "partySize": 9,
+        "date": "2026-02-19",
+        "startTime": "20:30",
+        "endTime": "22:00",
+        "status": "confirmed",
+        "duration": 90,
+        "notes": "VIP redonda"
+      }
+    }
+  ],
+  "vip_6_people": {
+    "description": "Reserva VIP de 6 usando A+B",
+    "method": "POST",
+    "path": "/api/reservations",
+    "headers": {
+      "Idempotency-Key": "sample-vip6-2026-02-19-2100"
+    },
+    "body": {
+      "tableIds": ["t-va", "t-vb"],
+      "clientName": "Familia Ortega",
+      "partySize": 6,
+      "date": "2026-02-19",
+      "startTime": "21:00",
+      "endTime": "23:00",
+      "status": "confirmed",
+      "duration": 120,
+      "notes": "VIP combinado"
+    }
+  },
+  "cancel_and_rebook": [
+    {
+      "description": "Cancelar reserva existente",
+      "method": "PATCH",
+      "path": "/api/reservations/res-1/status",
+      "body": {
+        "status": "cancelled"
+      }
+    },
+    {
+      "description": "Re-reservar mismo horario luego de cancelación",
+      "method": "POST",
+      "path": "/api/reservations",
+      "headers": {
+        "Idempotency-Key": "sample-rereserve-res1"
+      },
+      "body": {
+        "tableIds": ["t-l3"],
+        "clientName": "Nueva Reserva",
+        "partySize": 3,
+        "date": "2026-02-19",
+        "startTime": "13:00",
+        "endTime": "14:30",
+        "status": "confirmed",
+        "duration": 90,
+        "notes": "Re-reserva"
+      }
+    }
+  ]
+}
