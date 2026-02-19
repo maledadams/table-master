@@ -57,6 +57,114 @@ const supabase = createClient(
   }
 );
 
+async function ensureDevelopmentSeedData() {
+  if (isProduction) return;
+
+  const { count, error: countError } = await supabase
+    .from('areas')
+    .select('id', { count: 'exact', head: true });
+
+  if (countError) {
+    console.warn('No se pudo verificar seed de áreas:', countError.message);
+    return;
+  }
+
+  const { count: tablesCount, error: tablesCountError } = await supabase
+    .from('tables')
+    .select('id', { count: 'exact', head: true });
+
+  if (tablesCountError) {
+    console.warn('No se pudo verificar seed de mesas:', tablesCountError.message);
+    return;
+  }
+
+  if ((count ?? 0) > 0 && (tablesCount ?? 0) > 0) return;
+
+  const areaBase = [
+    { id: '1b3fb320-1db0-4d95-8db4-357ce4f7cf01', name: 'Terraza', slug: 'terraza', maxTables: 12, isVip: false },
+    { id: '8dcbf5f1-f73c-4dc8-be4a-10f570b8ad70', name: 'Patio', slug: 'patio', maxTables: 12, isVip: false },
+    { id: '5d2a5c4e-48b0-44f3-b3fa-41f64066fc63', name: 'Lobby', slug: 'lobby', maxTables: 10, isVip: false },
+    { id: '8d328aa8-053a-4018-b7fa-fac94356a1b5', name: 'Bar', slug: 'bar', maxTables: 10, isVip: false },
+    { id: '2f37d5f9-a26d-4a8c-ac84-bf1f7ad6f8b0', name: 'Salones VIP', slug: 'vip', maxTables: 8, isVip: true },
+  ];
+
+  const tableBase = [
+    { id: '4ba49ad3-89df-426c-b593-b75ebf70b67f', areaId: '1b3fb320-1db0-4d95-8db4-357ce4f7cf01', number: 'T1', capacity: 4, tableType: 'STANDARD', isVipSpecial: false, vipPairKey: null, isActive: true, x: 16, y: 20 },
+    { id: '89ad95fd-23b0-4a34-8b36-88d4baf89d7b', areaId: '1b3fb320-1db0-4d95-8db4-357ce4f7cf01', number: 'T2', capacity: 4, tableType: 'STANDARD', isVipSpecial: false, vipPairKey: null, isActive: true, x: 42, y: 28 },
+    { id: '8908f9fc-06f8-44f0-b0ca-59f64b3ff1ef', areaId: '8dcbf5f1-f73c-4dc8-be4a-10f570b8ad70', number: 'P1', capacity: 2, tableType: 'CIRCULAR', isVipSpecial: false, vipPairKey: null, isActive: true, x: 20, y: 22 },
+    { id: '7b25c55d-f4f8-4bd5-aea5-a6827f2246d7', areaId: '8dcbf5f1-f73c-4dc8-be4a-10f570b8ad70', number: 'P2', capacity: 4, tableType: 'STANDARD', isVipSpecial: false, vipPairKey: null, isActive: true, x: 52, y: 34 },
+    { id: 'e529c80c-3f91-4c95-9a52-afc2f5cbede9', areaId: '5d2a5c4e-48b0-44f3-b3fa-41f64066fc63', number: 'L1', capacity: 4, tableType: 'STANDARD', isVipSpecial: false, vipPairKey: null, isActive: true, x: 25, y: 26 },
+    { id: 'c63072e2-0bd4-4552-8df7-e98f90bbf3ad', areaId: '5d2a5c4e-48b0-44f3-b3fa-41f64066fc63', number: 'L2', capacity: 6, tableType: 'STANDARD', isVipSpecial: false, vipPairKey: null, isActive: true, x: 58, y: 42 },
+    { id: '3f9fb177-5278-4fd2-8a9d-d00de8569838', areaId: '8d328aa8-053a-4018-b7fa-fac94356a1b5', number: 'B1', capacity: 2, tableType: 'CIRCULAR', isVipSpecial: false, vipPairKey: null, isActive: true, x: 18, y: 24 },
+    { id: '61335f81-4f7a-4d9f-92ab-fe804f50dc7b', areaId: '8d328aa8-053a-4018-b7fa-fac94356a1b5', number: 'B2', capacity: 2, tableType: 'CIRCULAR', isVipSpecial: false, vipPairKey: null, isActive: true, x: 48, y: 38 },
+    { id: 'f6da9f9d-90fb-4f3f-9ad7-12939f2272f7', areaId: '2f37d5f9-a26d-4a8c-ac84-bf1f7ad6f8b0', number: 'Cuadrada A', capacity: 3, tableType: 'VIP_SQUARE', isVipSpecial: true, vipPairKey: 'VIP_AB', isActive: true, x: 30, y: 30 },
+    { id: 'af4d2c5c-5f0a-4bd8-adfa-369f9f27f821', areaId: '2f37d5f9-a26d-4a8c-ac84-bf1f7ad6f8b0', number: 'Cuadrada B', capacity: 3, tableType: 'VIP_SQUARE', isVipSpecial: true, vipPairKey: 'VIP_AB', isActive: true, x: 52, y: 30 },
+  ];
+
+  async function upsertWithPruning(tableName, rows) {
+    const payload = rows.map((row) => ({ ...row }));
+    const errors = [];
+
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      const { error } = await supabase
+        .from(tableName)
+        .upsert(payload, { onConflict: 'id' });
+
+      if (!error) return { ok: true, message: '' };
+
+      errors.push(error.message);
+      const missingColumnMatch = /Could not find the '([^']+)' column/.exec(error.message);
+      if (!missingColumnMatch) {
+        return { ok: false, message: errors[errors.length - 1] };
+      }
+
+      const missingColumn = missingColumnMatch[1];
+      if (missingColumn === 'id') {
+        return { ok: false, message: errors[errors.length - 1] };
+      }
+
+      for (const row of payload) {
+        if (missingColumn in row) {
+          delete row[missingColumn];
+        }
+      }
+    }
+
+    return { ok: false, message: errors[errors.length - 1] || 'No se pudo adaptar el seed.' };
+  }
+
+  async function tryUpsertVariants(tableName, variants) {
+    const errors = [];
+    for (const rows of variants) {
+      const result = await upsertWithPruning(tableName, rows);
+      if (result.ok) return true;
+      errors.push(result.message);
+    }
+    console.warn(`No se pudo sembrar ${tableName}:`, errors[errors.length - 1]);
+    return false;
+  }
+
+  const areaVariants = [
+    areaBase.map((a) => ({ id: a.id, name: a.name, slug: a.slug, maxTables: a.maxTables, isVip: a.isVip })),
+    areaBase.map((a) => ({ id: a.id, name: a.name, slug: a.slug, max_tables: a.maxTables, is_vip: a.isVip })),
+    areaBase.map((a) => ({ id: a.id, name: a.name })),
+  ];
+
+  const tableVariants = [
+    tableBase.map((t) => ({ id: t.id, areaId: t.areaId, number: t.number, capacity: t.capacity, tableType: t.tableType, isVipSpecial: t.isVipSpecial, vipPairKey: t.vipPairKey, isActive: t.isActive, x: t.x, y: t.y })),
+    tableBase.map((t) => ({ id: t.id, area_id: t.areaId, number: t.number, capacity: t.capacity, table_type: t.tableType, is_vip_special: t.isVipSpecial, vip_pair_key: t.vipPairKey, is_active: t.isActive, x: t.x, y: t.y })),
+    tableBase.map((t) => ({ id: t.id, area: t.areaId, number: t.number, capacity: t.capacity, type: t.tableType, x: t.x, y: t.y })),
+  ];
+
+  const areaOk = await tryUpsertVariants('areas', areaVariants);
+  if (!areaOk) return;
+
+  const tablesOk = await tryUpsertVariants('tables', tableVariants);
+  if (!tablesOk) return;
+
+  console.info('Seed de desarrollo aplicado: áreas y mesas base creadas.');
+}
+
 const openApiPath = path.resolve(process.cwd(), '..', 'src', 'openapy.yaml');
 const openApiSpec = fs.existsSync(openApiPath) ? fs.readFileSync(openApiPath, 'utf8') : '';
 
@@ -72,6 +180,14 @@ app.use(
   cors({
     origin(origin, callback) {
       if (!origin) return callback(null, true);
+      if (!isProduction) {
+        try {
+          const url = new URL(origin);
+          const isLocalHost = url.hostname === 'localhost' || url.hostname === '127.0.0.1';
+          if (isLocalHost) return callback(null, true);
+        } catch {
+        }
+      }
       if (CORS_ORIGINS.includes(origin)) return callback(null, true);
       return callback(new Error(`Origen no permitido por CORS: ${origin}`));
     },
@@ -350,4 +466,7 @@ app.get('/api/availability', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`API (${NODE_ENV}) corriendo en http://localhost:${PORT}/api`);
+  ensureDevelopmentSeedData().catch((error) => {
+    console.warn('No se pudo aplicar seed de desarrollo:', error?.message || error);
+  });
 });
