@@ -17,6 +17,7 @@ interface RestaurantState {
   updateReservationStatus: (id: string, status: Reservation['status']) => Promise<void>;
   markWalkIn: (tableId: string) => Promise<void>;
   releaseTable: (tableId: string) => Promise<void>;
+  updateTablePosition: (tableId: string, x: number, y: number) => void;
 }
 
 export function computeVisualStatus(
@@ -130,5 +131,13 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
       await api.updateReservationStatus(active.id, 'completed');
       await get().refreshReservations();
     }
+  },
+
+  updateTablePosition: (tableId, x, y) => {
+    set((state) => ({
+      tables: state.tables.map((t) =>
+        t.id === tableId ? { ...t, x, y } : t
+      ),
+    }));
   },
 }));

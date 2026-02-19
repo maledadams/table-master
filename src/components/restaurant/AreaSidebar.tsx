@@ -1,4 +1,4 @@
-import { useRestaurantStore } from '@/store/restaurant-store';
+import { useRestaurantStore, computeTablesWithStatus } from '@/store/restaurant-store';
 import { Area } from '@/types/restaurant';
 import { cn } from '@/lib/utils';
 import { MapPin, Wine, Trees, Building2, Armchair } from 'lucide-react';
@@ -11,21 +11,23 @@ const areaIcons: Record<string, React.ElementType> = {
   'Salones VIP': Armchair,
 };
 
-export function AreaSidebar() {
+interface AreaSidebarProps {
+  currentTime: Date;
+}
+
+export function AreaSidebar({ currentTime }: AreaSidebarProps) {
   const { areas, selectedAreaId, selectArea, reservations, tables } = useRestaurantStore();
 
   const getAreaStats = (area: Area) => {
     const areaTables = tables.filter((t) => t.areaId === area.id);
-    const today = new Date().toISOString().split('T')[0];
-    const activeRes = reservations.filter(
-      (r) =>
-        r.date === today &&
-        r.status !== 'cancelled' &&
-        r.status !== 'completed' &&
-        r.status !== 'no_show' &&
-        r.tableIds.some((id) => areaTables.some((t) => t.id === id))
-    );
-    return { total: areaTables.length, occupied: activeRes.length };
+    const withStatus = computeTablesWithStatus(areaTables, reservations, currentTime);
+    const occupied = withStatus.filter(
+      (t) =>
+        t.visualStatus === 'occupied' ||
+        t.visualStatus === 'reserved_active' ||
+        t.visualStatus === 'vip_combined'
+    ).length;
+    return { total: areaTables.length, available: areaTables.length - occupied };
   };
 
   return (
@@ -53,7 +55,7 @@ export function AreaSidebar() {
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-semibold">{area.name}</div>
                 <div className="text-[10px] opacity-60">
-                  {stats.occupied}/{stats.total} mesas
+                  {stats.available}/{stats.total} mesas
                 </div>
               </div>
             </button>
