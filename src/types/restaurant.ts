@@ -19,6 +19,8 @@ export interface RestaurantTable {
   mergeGroup: string | null;
   x: number;
   y: number;
+  version?: number;
+  updatedAt?: string;
 }
 
 export type ReservationStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'no_show';

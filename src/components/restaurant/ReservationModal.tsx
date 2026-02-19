@@ -76,7 +76,7 @@ export function ReservationModal({ open, onClose, table, combinedTableIds }: Res
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="sm:max-w-md bg-card">
+      <DialogContent className="w-[94vw] sm:max-w-3xl bg-card">
         <DialogHeader>
           <DialogTitle className="text-foreground">
             Reservar — {titleName} ({effectiveCapacity}p)
