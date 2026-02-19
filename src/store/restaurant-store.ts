@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Area, RestaurantTable, Reservation, TableWithStatus, TableVisualStatus } from '@/types/restaurant';
-import { api } from '@/services/api';
+import { api } from '@/services/client-api';
 import { ApiError } from '@/services/errors';
 
 interface RestaurantState {
@@ -18,6 +18,7 @@ interface RestaurantState {
   updateReservationStatus: (id: string, status: Reservation['status']) => Promise<void>;
   markWalkIn: (tableId: string) => Promise<void>;
   releaseTable: (tableId: string) => Promise<void>;
+  addTableToSelectedArea: () => Promise<RestaurantTable>;
   updateTablePosition: (
     tableId: string,
     x: number,
@@ -171,20 +172,27 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
   },
 
   releaseTable: async (tableId) => {
-    const { reservations } = get();
-    const today = new Date().toISOString().split('T')[0];
-    const active = reservations.find(
-      (r) =>
-        r.tableIds.includes(tableId) &&
-        r.date === today &&
-        r.status !== 'cancelled' &&
-        r.status !== 'completed' &&
-        r.status !== 'no_show'
-    );
-    if (active) {
-      await api.updateReservationStatus(active.id, 'completed');
+    const result = await api.releaseTable(tableId);
+    if (result.released) {
       await get().refreshReservations();
     }
+  },
+
+  addTableToSelectedArea: async () => {
+    const selectedAreaId = get().selectedAreaId;
+    if (!selectedAreaId) {
+      throw new ApiError({
+        status: 422,
+        code: 'UNPROCESSABLE_ENTITY',
+        message: 'Selecciona un area para agregar una mesa.',
+      });
+    }
+
+    const created = await api.createTable({ areaId: selectedAreaId });
+    set((state) => ({
+      tables: [...state.tables, created],
+    }));
+    return created;
   },
 
   updateTablePosition: (tableId, x, y, options) => {

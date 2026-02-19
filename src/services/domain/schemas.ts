@@ -72,3 +72,9 @@ export const updateTablePositionInputSchema = z.object({
   canvasHeight: z.number().finite().positive().optional(),
   isMergedView: z.boolean().optional(),
 });
+
+export const createTableInputSchema = z.object({
+  areaId: z.string().min(1),
+  capacity: z.number().int().positive().optional(),
+  type: z.enum(['standard', 'square']).optional(),
+});

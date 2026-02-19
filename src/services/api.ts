@@ -10,6 +10,7 @@ import { mockAreas, mockTables, mockReservations } from '@/data/mock-data';
 import { ApiError } from '@/services/errors';
 import {
   areaSchema,
+  createTableInputSchema,
   createReservationInputSchema,
   createWalkInInputSchema,
   dateSchema,
@@ -26,7 +27,11 @@ import {
   isActiveReservationStatus,
   listVipFunctionalUnitKeys,
 } from '@/services/domain/reservation-rules';
-import { clampTablePositionToArea } from '@/services/domain/table-position-rules';
+import {
+  clampTablePositionToArea,
+  DEFAULT_ZONE_INSET,
+  zoneInsetByAreaId,
+} from '@/services/domain/table-position-rules';
 
 const API_BASE_URL = ''; // Set this when connecting to real API
 void API_BASE_URL;
@@ -45,6 +50,13 @@ const IDEMPOTENCY_TTL_MS = 10 * 60 * 1000;
 
 const DEFAULT_CANVAS_WIDTH = 1200;
 const DEFAULT_CANVAS_HEIGHT = 700;
+const MAX_NON_VIP_TABLES = 8;
+const AREA_CODE_BY_ID: Record<string, string> = {
+  'area-terraza': 't',
+  'area-patio': 'p',
+  'area-lobby': 'l',
+  'area-bar': 'b',
+};
 
 let initialized = false;
 let reservations: Reservation[] = [];
@@ -173,6 +185,64 @@ function generateReservationId(): string {
   return `res-${nextId++}`;
 }
 
+function getNextTableNumber(areaId: string, code: string): number {
+  const areaTables = tables.filter((table) => table.areaId === areaId);
+  const numbers = areaTables
+    .map((table) => {
+      const fromName = table.name.match(new RegExp(`^${code.toUpperCase()}(\\d+)$`));
+      if (fromName) return Number(fromName[1]);
+      const fromId = table.id.match(new RegExp(`^t-${code}(\\d+)$`));
+      if (fromId) return Number(fromId[1]);
+      return 0;
+    })
+    .filter((value) => Number.isFinite(value));
+  return (numbers.length > 0 ? Math.max(...numbers) : 0) + 1;
+}
+
+function buildUniqueTableIdentity(areaId: string): { id: string; name: string } {
+  const code = AREA_CODE_BY_ID[areaId];
+  if (!code) {
+    throw new ApiError({
+      status: 422,
+      code: 'UNPROCESSABLE_ENTITY',
+      message: 'El area seleccionada no permite agregar mesas.',
+    });
+  }
+
+  let nextNumber = getNextTableNumber(areaId, code);
+  let candidateId = `t-${code}${nextNumber}`;
+  while (tables.some((table) => table.id === candidateId)) {
+    nextNumber += 1;
+    candidateId = `t-${code}${nextNumber}`;
+  }
+
+  return {
+    id: candidateId,
+    name: `${code.toUpperCase()}${nextNumber}`,
+  };
+}
+
+function getDefaultTablePosition(areaId: string, currentCount: number): { x: number; y: number } {
+  const inset = zoneInsetByAreaId[areaId] ?? DEFAULT_ZONE_INSET;
+  const zoneWidth = 100 - inset.left - inset.right;
+  const zoneHeight = 100 - inset.top - inset.bottom;
+  const slots: Array<{ rx: number; ry: number }> = [
+    { rx: 0.12, ry: 0.12 },
+    { rx: 0.42, ry: 0.12 },
+    { rx: 0.72, ry: 0.12 },
+    { rx: 0.12, ry: 0.42 },
+    { rx: 0.42, ry: 0.42 },
+    { rx: 0.72, ry: 0.42 },
+    { rx: 0.25, ry: 0.72 },
+    { rx: 0.58, ry: 0.72 },
+  ];
+  const slot = slots[currentCount % slots.length];
+  return {
+    x: inset.left + zoneWidth * slot.rx,
+    y: inset.top + zoneHeight * slot.ry,
+  };
+}
+
 function validateNoPastReservation(data: Omit<Reservation, 'id'>): void {
   if (data.duration <= 0) return;
   const now = new Date();
@@ -291,6 +361,72 @@ export const api = {
     const filtered = areaId ? tables.filter((table) => table.areaId === areaId) : tables;
     const parsed = parseOrThrow(z.array(restaurantTableSchema), filtered, 'Mesas inválidas');
     return deepClone(parsed);
+  },
+
+  async createTable(input: {
+    areaId: string;
+    capacity?: number;
+    type?: 'standard' | 'square';
+  }): Promise<RestaurantTable> {
+    ensureInitialized();
+    const parsedInput = parseOrThrow(createTableInputSchema, input, 'Solicitud de mesa inválida');
+    const area = mockAreas.find((item) => item.id === parsedInput.areaId);
+    if (!area) {
+      throw new ApiError({
+        status: 404,
+        code: 'NOT_FOUND',
+        message: 'Area no encontrada.',
+      });
+    }
+    if (area.id === 'area-vip' || area.name === 'Salones VIP') {
+      throw new ApiError({
+        status: 422,
+        code: 'UNPROCESSABLE_ENTITY',
+        message: 'No se permiten nuevas mesas en Salones VIP.',
+      });
+    }
+
+    const areaTables = tables.filter((table) => table.areaId === area.id);
+    if (areaTables.length >= Math.min(area.maxTables, MAX_NON_VIP_TABLES)) {
+      throw new ApiError({
+        status: 409,
+        code: 'CONFLICT',
+        message: 'Esta area ya tiene el máximo de 8 mesas.',
+      });
+    }
+
+    const identity = buildUniqueTableIdentity(area.id);
+    const rawPosition = getDefaultTablePosition(area.id, areaTables.length);
+    const baseTable: RestaurantTable = {
+      id: identity.id,
+      areaId: area.id,
+      capacity: parsedInput.capacity ?? 4,
+      type: parsedInput.type ?? 'standard',
+      name: identity.name,
+      isVIP: false,
+      canMerge: false,
+      mergeGroup: null,
+      x: rawPosition.x,
+      y: rawPosition.y,
+    };
+
+    const clamped = clampTablePositionToArea({
+      table: baseTable,
+      areaId: area.id,
+      x: baseTable.x,
+      y: baseTable.y,
+      canvasWidth: DEFAULT_CANVAS_WIDTH,
+      canvasHeight: DEFAULT_CANVAS_HEIGHT,
+    });
+    const tableRecord = normalizeTable({
+      ...baseTable,
+      x: clamped.x,
+      y: clamped.y,
+    });
+
+    tables.push(tableRecord);
+    persistState();
+    return deepClone(parseOrThrow(restaurantTableSchema, tableRecord, 'Mesa inválida'));
   },
 
   async getReservations(date: string, areaId?: string): Promise<Reservation[]> {
