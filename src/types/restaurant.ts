@@ -17,6 +17,8 @@ export interface RestaurantTable {
   isVIP: boolean;
   canMerge: boolean;
   mergeGroup: string | null;
+  x: number;
+  y: number;
 }
 
 export type ReservationStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'no_show';

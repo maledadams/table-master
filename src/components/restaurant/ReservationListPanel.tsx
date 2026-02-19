@@ -25,7 +25,7 @@ export function ReservationListPanel({ open, onClose }: ReservationListPanelProp
   const todayReservations = useMemo(() => {
     const today = new Date().toISOString().split('T')[0];
     return reservations
-      .filter((r) => r.date === today && r.duration > 0) // exclude walk-ins
+      .filter((r) => r.date === today)
       .sort((a, b) => a.startTime.localeCompare(b.startTime));
   }, [reservations]);
 

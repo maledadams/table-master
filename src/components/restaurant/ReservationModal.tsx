@@ -10,6 +10,7 @@ interface ReservationModalProps {
   open: boolean;
   onClose: () => void;
   table: TableWithStatus;
+  combinedTableIds?: string[];
 }
 
 const DURATION_OPTIONS = [
@@ -18,8 +19,12 @@ const DURATION_OPTIONS = [
   { value: 180, label: '180 min (VIP/evento)' },
 ];
 
-export function ReservationModal({ open, onClose, table }: ReservationModalProps) {
+export function ReservationModal({ open, onClose, table, combinedTableIds }: ReservationModalProps) {
   const { createReservation } = useRestaurantStore();
+
+  const isCombined = !!combinedTableIds && combinedTableIds.length === 2;
+  const effectiveCapacity = isCombined ? 6 : table.capacity;
+  const titleName = isCombined ? 'Cuadrada A + B' : table.name;
 
   const now = new Date();
   const defaultTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -28,6 +33,7 @@ export function ReservationModal({ open, onClose, table }: ReservationModalProps
   const [startTime, setStartTime] = useState(defaultTime);
   const [duration, setDuration] = useState(defaultDuration);
   const [clientName, setClientName] = useState('');
+  const [partySize, setPartySize] = useState(effectiveCapacity);
   const [notes, setNotes] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -46,16 +52,13 @@ export function ReservationModal({ open, onClose, table }: ReservationModalProps
     const endTime = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`;
     const today = now.toISOString().split('T')[0];
 
-    let tableIds = [table.id];
-    if (table.canMerge && table.mergeGroup === 'VIP_AB') {
-      tableIds = [table.id];
-    }
+    const tableIds = isCombined ? combinedTableIds : [table.id];
 
     try {
       await createReservation({
         tableIds,
         clientName: clientName.trim(),
-        partySize: table.capacity,
+        partySize,
         date: today,
         startTime,
         endTime,
@@ -76,7 +79,7 @@ export function ReservationModal({ open, onClose, table }: ReservationModalProps
       <DialogContent className="sm:max-w-md bg-card">
         <DialogHeader>
           <DialogTitle className="text-foreground">
-            Reservar — {table.name} ({table.capacity}p)
+            Reservar — {titleName} ({effectiveCapacity}p)
           </DialogTitle>
         </DialogHeader>
 
@@ -114,15 +117,28 @@ export function ReservationModal({ open, onClose, table }: ReservationModalProps
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground">Nombre del cliente *</Label>
-            <Input
-              value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-              placeholder="Ej: García López"
-              className="bg-secondary border-border"
-              onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Nombre del cliente *</Label>
+              <Input
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                placeholder="Ej: García López"
+                className="bg-secondary border-border"
+                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs text-muted-foreground">Personas</Label>
+              <Input
+                type="number"
+                min={1}
+                max={effectiveCapacity}
+                value={partySize}
+                onChange={(e) => setPartySize(Number(e.target.value))}
+                className="bg-secondary border-border"
+              />
+            </div>
           </div>
 
           <div className="space-y-1.5">
