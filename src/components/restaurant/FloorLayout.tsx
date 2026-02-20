@@ -8,7 +8,24 @@ import { ReservationModal } from './ReservationModal';
 import { ReservationListPanel } from './ReservationListPanel';
 import { TableWithStatus } from '@/types/restaurant';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
 import { RefreshCw, CalendarDays, Unlock } from 'lucide-react';
+
+function getUnavailableTableMessage(table: TableWithStatus): string {
+  if (table.visualStatus === 'reserved_future' && table.reservation) {
+    return `Tiene una reserva programada desde ${table.reservation.startTime}.`;
+  }
+
+  if ((table.visualStatus === 'reserved_active' || table.visualStatus === 'vip_combined') && table.reservation) {
+    return `Está ocupada por reserva hasta ${table.reservation.endTime}.`;
+  }
+
+  if (table.visualStatus === 'occupied') {
+    return 'Está ocupada en este momento.';
+  }
+
+  return 'No se puede reservar ahora mismo.';
+}
 
 export function FloorLayout() {
   const loadInitialData = useRestaurantStore((s) => s.loadInitialData);
@@ -58,11 +75,18 @@ export function FloorLayout() {
   }, [selectedTable, rawTables]);
 
   const handleTableClick = useCallback((table: TableWithStatus) => {
-    setSelectedTable(table);
-    setCombineMode(false);
     if (table.visualStatus === 'available') {
+      setSelectedTable(table);
+      setCombineMode(false);
       setShowActionModal(true);
+      return;
     }
+
+    toast({
+      variant: 'destructive',
+      title: `${table.name} no disponible`,
+      description: getUnavailableTableMessage(table),
+    });
   }, []);
 
   const handleReserve = () => {

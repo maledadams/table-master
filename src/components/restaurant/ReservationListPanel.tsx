@@ -5,7 +5,6 @@ import { useRestaurantStore } from '@/store/restaurant-store';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Check, X, UserX } from 'lucide-react';
-import { getLocalDateISO } from '@/lib/date';
 
 interface ReservationListPanelProps {
   open: boolean;
@@ -23,11 +22,13 @@ const statusColors: Record<string, string> = {
 export function ReservationListPanel({ open, onClose }: ReservationListPanelProps) {
   const { reservations, tables, updateReservationStatus } = useRestaurantStore();
 
-  const todayReservations = useMemo(() => {
-    const today = getLocalDateISO();
+  const sortedReservations = useMemo(() => {
     return reservations
-      .filter((r) => r.date === today)
-      .sort((a, b) => a.startTime.localeCompare(b.startTime));
+      .slice()
+      .sort((a, b) => {
+        if (a.date !== b.date) return b.date.localeCompare(a.date);
+        return a.startTime.localeCompare(b.startTime);
+      });
   }, [reservations]);
 
   const getTableNames = (tableIds: string[]) =>
@@ -37,17 +38,18 @@ export function ReservationListPanel({ open, onClose }: ReservationListPanelProp
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="sm:max-w-2xl bg-card max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-foreground">Reservas del Día</DialogTitle>
+          <DialogTitle className="text-foreground">Todas las Reservas</DialogTitle>
         </DialogHeader>
 
-        {todayReservations.length === 0 ? (
+        {sortedReservations.length === 0 ? (
           <div className="py-8 text-center text-muted-foreground text-sm">
-            No hay reservas para hoy.
+            No hay reservas registradas.
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow className="border-border">
+                <TableHead className="text-muted-foreground text-xs">Fecha</TableHead>
                 <TableHead className="text-muted-foreground text-xs">Hora</TableHead>
                 <TableHead className="text-muted-foreground text-xs">Mesa</TableHead>
                 <TableHead className="text-muted-foreground text-xs">Cliente</TableHead>
@@ -57,8 +59,9 @@ export function ReservationListPanel({ open, onClose }: ReservationListPanelProp
               </TableRow>
             </TableHeader>
             <TableBody>
-              {todayReservations.map((res) => (
+              {sortedReservations.map((res) => (
                 <TableRow key={res.id} className="border-border">
+                  <TableCell className="text-sm">{res.date}</TableCell>
                   <TableCell className="text-sm font-mono">
                     {res.startTime} - {res.endTime}
                   </TableCell>

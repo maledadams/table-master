@@ -181,10 +181,15 @@ export const api = {
     return (json.data as Record<string, unknown>[]).map(toTable);
   },
 
-  async getReservations(date: string, areaId?: string): Promise<Reservation[]> {
-    const params = new URLSearchParams({ date });
+  async getReservations(date?: string, areaId?: string): Promise<Reservation[]> {
+    const params = new URLSearchParams();
+    if (date) params.append('date', date);
     if (areaId) params.append('areaId', areaId);
-    const res = await fetch(`${API_BASE_URL}/reservations?${params}`);
+    const queryString = params.toString();
+    const url = queryString
+      ? `${API_BASE_URL}/reservations?${queryString}`
+      : `${API_BASE_URL}/reservations`;
+    const res = await fetch(url);
     if (!res.ok) throw new Error('Error al obtener reservas');
     const json = await res.json();
     return (json.data as Record<string, unknown>[]).map(toReservation);

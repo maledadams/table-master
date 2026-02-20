@@ -200,9 +200,17 @@ if (openApiSpec) {
   app.get('/openapi.yaml', (_req, res) => {
     res.type('text/yaml').send(openApiSpec);
   });
+  app.get('/api/openapi.yaml', (_req, res) => {
+    res.type('text/yaml').send(openApiSpec);
+  });
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
     swaggerOptions: {
       url: '/openapi.yaml',
+    },
+  }));
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, {
+    swaggerOptions: {
+      url: '/api/openapi.yaml',
     },
   }));
 }
@@ -228,6 +236,60 @@ function normalizeReservationStatus(status) {
 function normalizeStartTime(time) {
   if (!isValidTime(time)) return null;
   return time.length === 5 ? `${time}:00` : time;
+}
+
+function toMinutes(time) {
+  if (!isValidTime(time)) return null;
+  const [hours, minutes] = String(time).split(':').map(Number);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
+  return hours * 60 + minutes;
+}
+
+function computeWindow(startTime, endTime, durationMins) {
+  const start = toMinutes(startTime);
+  if (start == null) return null;
+
+  const endFromTime = endTime ? toMinutes(endTime) : null;
+  if (endFromTime != null) {
+    return { start, end: Math.max(endFromTime, start + 1) };
+  }
+
+  const safeDuration = Number.isFinite(Number(durationMins)) ? Math.max(1, Number(durationMins)) : 90;
+  return { start, end: start + safeDuration };
+}
+
+function normalizeStoredTableIds(reservation) {
+  if (Array.isArray(reservation.table_ids)) {
+    return reservation.table_ids.filter((id) => typeof id === 'string' && id.length > 0);
+  }
+  if (Array.isArray(reservation.tableIds)) {
+    return reservation.tableIds.filter((id) => typeof id === 'string' && id.length > 0);
+  }
+  if (typeof reservation.table_id === 'string' && reservation.table_id.length > 0) {
+    return [reservation.table_id];
+  }
+  if (typeof reservation.tableId === 'string' && reservation.tableId.length > 0) {
+    return [reservation.tableId];
+  }
+  return [];
+}
+
+function isActiveReservation(reservation) {
+  const normalizedStatus = String(reservation.status ?? reservation.reservation_status ?? 'CONFIRMED').toUpperCase();
+  return normalizedStatus !== 'CANCELLED' && normalizedStatus !== 'COMPLETED' && normalizedStatus !== 'NO_SHOW';
+}
+
+function hasOverlap(existingReservation, incomingWindow) {
+  const existingStart = normalizeStartTime(String(existingReservation.start_time ?? existingReservation.startTime ?? ''));
+  if (!existingStart) return false;
+
+  const existingEndRaw = existingReservation.end_time ?? existingReservation.endTime;
+  const existingEnd = typeof existingEndRaw === 'string' ? normalizeStartTime(existingEndRaw) : null;
+  const existingDuration = existingReservation.duration_mins ?? existingReservation.durationMins ?? 90;
+  const existingWindow = computeWindow(existingStart, existingEnd, existingDuration);
+  if (!existingWindow) return false;
+
+  return existingWindow.start < incomingWindow.end && incomingWindow.start < existingWindow.end;
 }
 
 async function insertReservationWithAdaptivePayloads(baseValues) {
@@ -359,18 +421,26 @@ app.get('/api/reservations', async (req, res) => {
   const date = typeof req.query.date === 'string' ? req.query.date : undefined;
   const areaId = typeof req.query.areaId === 'string' ? req.query.areaId : undefined;
 
-  if (!date || !isValidDate(date)) {
+  if (date && !isValidDate(date)) {
     return apiError(res, 400, 'Parámetro date inválido. Usa formato YYYY-MM-DD.');
   }
 
-  let query = supabase.from('reservations').select('*').eq('date', date);
+  let query = supabase.from('reservations').select('*');
   let data;
   let error;
+
+  if (date) {
+    query = query.eq('date', date);
+  }
 
   if (areaId) {
     ({ data, error } = await query.eq('area', areaId));
     if (error) {
-      ({ data, error } = await supabase.from('reservations').select('*').eq('date', date).eq('areaId', areaId));
+      let fallbackQuery = supabase.from('reservations').select('*');
+      if (date) {
+        fallbackQuery = fallbackQuery.eq('date', date);
+      }
+      ({ data, error } = await fallbackQuery.eq('areaId', areaId));
     }
   } else {
     ({ data, error } = await query);
@@ -410,6 +480,42 @@ app.post('/api/reservations', async (req, res) => {
 
   if (!normalizedTableId && normalizedTableIds.length === 0) {
     return apiError(res, 400, 'Debes enviar tableId o tableIds.');
+  }
+
+  const incomingTableIds = normalizedTableIds.length > 0 ? normalizedTableIds : [normalizedTableId];
+  const incomingWindow = computeWindow(normalizedStartTime, normalizedEndTime, safeDurationMins);
+  if (!incomingWindow) {
+    return apiError(res, 400, 'No se pudo calcular la ventana de tiempo de la reserva.');
+  }
+
+  const { data: reservationsForDate, error: reservationsError } = await supabase
+    .from('reservations')
+    .select('*')
+    .eq('date', date);
+
+  if (reservationsError) {
+    return apiError(res, 500, 'Error al validar disponibilidad', reservationsError.message);
+  }
+
+  const conflict = (reservationsForDate || []).some((reservation) => {
+    if (!isActiveReservation(reservation)) return false;
+
+    const currentTableIds = normalizeStoredTableIds(reservation);
+    const existingStart = normalizeStartTime(String(reservation.start_time ?? reservation.startTime ?? ''));
+    const sameStartTime = existingStart === normalizedStartTime;
+
+    if (currentTableIds.length === 0) {
+      return sameStartTime;
+    }
+
+    const sameTable = currentTableIds.some((id) => incomingTableIds.includes(id));
+    if (!sameTable) return false;
+
+    return hasOverlap(reservation, incomingWindow);
+  });
+
+  if (conflict) {
+    return apiError(res, 409, 'Ya existe una reserva para esa mesa en ese horario.');
   }
 
   const result = await insertReservationWithAdaptivePayloads({

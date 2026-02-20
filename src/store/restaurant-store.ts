@@ -83,7 +83,7 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
       const [areas, tables, reservations] = await Promise.all([
         api.getAreas(),
         api.getTables(),
-        api.getReservations(getLocalDateISO()),
+        api.getReservations(),
       ]);
 
       const hasCoreData = areas.length > 0 && tables.length > 0;
@@ -112,7 +112,7 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
   selectArea: (areaId) => set({ selectedAreaId: areaId }),
 
   refreshReservations: async () => {
-    const reservations = await api.getReservations(getLocalDateISO());
+    const reservations = await api.getReservations();
     set({ reservations });
   },
 
